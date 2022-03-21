@@ -1,4 +1,5 @@
 const Service = require("../models/Service.model");
+const Executor = require("../models/Executor.model");
 
 module.exports.servicesController = {
     addService: async (req, res) => {
@@ -22,7 +23,15 @@ module.exports.servicesController = {
         }
     },
     deleteService: async (req, res) => {
+        const token = req.headers
         try {
+            const thisExecutor = await Executor.findOne({_id: req.user.executorId});
+            const thisService = await Service.findOne({_id: req.params.id});
+            if (thisExecutor._id.toString() !== thisService.executorId.toString()) {
+                console.log(thisExecutor._id, thisService.executorId)
+                return res.json({error: "Вы не имеете доступа к удалению этой услуги"})
+            }
+
             await Service.findByIdAndDelete(req.params.id);
             res.json("service deleted")
         } catch (e) {
