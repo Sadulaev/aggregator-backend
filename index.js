@@ -9,9 +9,10 @@ const app = express();
 
 app.use(cors());
 app.use(express.json());
-// app.use(require("./routes"));
+app.use(require("./routes/executors.route"));
+app.use(require("./routes/services.route"));
 
-mongoose.connect("mongodb+srv://sam:into@cluster0.1sks7.mongodb.net/bsaggregator?retryWrites=true&w=majority")
+mongoose.connect(process.env.CONNECT)
 .then(() => {
     console.log("connected");
     app.listen(port, () => {
