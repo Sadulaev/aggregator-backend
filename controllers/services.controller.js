@@ -25,10 +25,9 @@ module.exports.servicesController = {
     deleteService: async (req, res) => {
         const token = req.headers
         try {
-            const thisExecutor = await Executor.findOne({_id: req.user.executorId});
             const thisService = await Service.findOne({_id: req.params.id});
-            if (thisExecutor._id.toString() !== thisService.executorId.toString()) {
-                console.log(thisExecutor._id, thisService.executorId)
+            if (req.user.executorId !== thisService.executorId.toString()) {
+                console.log(req.user.executorId, thisService.executorId)
                 return res.json({error: "Вы не имеете доступа к удалению этой услуги"})
             }
 
