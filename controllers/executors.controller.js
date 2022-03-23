@@ -37,7 +37,7 @@ module.exports.executorsController = {
     },
     getExecutorById: async (req, res) => {
         try {
-            const executorById = await Service.findOne(req.params.id);
+            const executorById = await Executor.findById(req.user.executorId);
             res.json(executorById);
         } catch (e) {
             res.json({ error: e.toString() });
