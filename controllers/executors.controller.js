@@ -4,7 +4,7 @@ const jwt = require("jsonwebtoken");
 
 module.exports.executorsController = {
     signUp: async (req, res) => {
-        const { login, executor, password, phone, city } = req.body;
+        const { login, executor, password, phone, city, mail } = req.body;
         const hash = await bcrypt.hash(password, Number(process.env.BCRYPT_ROUNDS));
         try {
             const newExecutor = await Executor.create({
@@ -13,6 +13,7 @@ module.exports.executorsController = {
                 password: hash,
                 phone,
                 city,
+                mail
             });
             res.json(newExecutor);
         } catch (e) {
@@ -38,6 +39,14 @@ module.exports.executorsController = {
     getExecutorById: async (req, res) => {
         try {
             const executorById = await Executor.findById(req.user.executorId);
+            res.json(executorById);
+        } catch (e) {
+            res.json({ error: e.toString() });
+        }
+    },
+    getExecutorByParamsId: async (req, res) => {
+        try {
+            const executorById = await Executor.findById(req.params.id);
             res.json(executorById);
         } catch (e) {
             res.json({ error: e.toString() });

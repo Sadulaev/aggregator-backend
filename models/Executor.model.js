@@ -3,7 +3,8 @@ const mongoose = require('mongoose');
 const executorSchema = mongoose.Schema({
     login: {
         type: String,
-        required: true
+        required: true,
+        unique: true
     },
     executor: {
         type: String,
@@ -16,6 +17,9 @@ const executorSchema = mongoose.Schema({
     phone: {
         type: String,
         required: true
+    },
+    mail: {
+        type: String
     },
     city: {
         type: String
