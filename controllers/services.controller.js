@@ -47,7 +47,7 @@ module.exports.servicesController = {
     },
     getServiceById: async (req, res) => {
         try {
-            const serviceById = await Service.findOne(req.params.id);
+            const serviceById = await Service.findById(req.params.id);
             res.json(serviceById);
         } catch (e) {
             res.json({error: e.toString()});
@@ -55,7 +55,7 @@ module.exports.servicesController = {
     },
     getServicesByCategoryId: async (req, res) => {
         try {
-            const servicesByCategoryId = await Service.findOne({categoryId: req.params.id});
+            const servicesByCategoryId = await Service.find({categoryId: req.params.id});
             res.json(servicesByCategoryId);
         } catch (e) {
             res.json({error: e.toString()});
@@ -63,7 +63,7 @@ module.exports.servicesController = {
     },
     getServicesByExecutorId: async (req, res) => {
         try {
-            const servicesByExecutorId = await Service.findOne({executorId: req.params.id});
+            const servicesByExecutorId = await Service.find({executorId: req.user.executorId});
             res.json(servicesByExecutorId);
         } catch (e) {
             res.json({error: e.toString()});

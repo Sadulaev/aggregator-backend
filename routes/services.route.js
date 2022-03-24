@@ -7,8 +7,8 @@ router.get("/", servicesController.getServices);
 router.post("/", authMiddleware, servicesController.addService);
 router.delete("/:id", authMiddleware, servicesController.deleteService);
 router.get("/:id", servicesController.getServiceById);
-router.get("/:categoryId", servicesController.getServicesByCategoryId);
-router.get("/:executorId", servicesController.getServicesByExecutorId);
+router.get("/category/:categoryId", servicesController.getServicesByCategoryId);
+router.get("/executor/user", authMiddleware, servicesController.getServicesByExecutorId);
 
 
 module.exports = router;
