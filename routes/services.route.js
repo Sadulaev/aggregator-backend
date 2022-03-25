@@ -10,5 +10,9 @@ router.get("/:id", servicesController.getServiceById);
 router.get("/category/:categoryId", servicesController.getServicesByCategoryId);
 router.get("/executor/user", authMiddleware, servicesController.getServicesByExecutorId);
 
+//Роуты к созданным контроллерам для личного кабинета. Также без необходимости не менять.
+router.patch("/executor/edit/:id", servicesController.editServiceById)
+router.delete("/executor/remove/:id", servicesController.removeServiceById)
+
 
 module.exports = router;
