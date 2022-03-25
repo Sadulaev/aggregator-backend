@@ -1,5 +1,6 @@
 const Service = require("../models/Service.model");
 const Executor = require("../models/Executor.model");
+const { findByIdAndRemove } = require("../models/Service.model");
 
 module.exports.servicesController = {
     addService: async (req, res) => {
@@ -67,6 +68,31 @@ module.exports.servicesController = {
             res.json(servicesByExecutorId);
         } catch (e) {
             res.json({error: e.toString()});
+        }
+    },
+
+    //Ниже контроллеры для личного кабинета. На 25.03.2022 3:22 рабочие. Без необходимости не менять.
+    editServiceById: async (req, res) => {
+        try {const {serviceName, description, price} = req.body
+        await Service.findByIdAndUpdate(req.params.id, {
+            serviceName,
+            description,
+            price
+        })
+
+        const newService = await Service.findById(req.params.id)
+        res.json(newService)
+
+        } catch (e) {
+            res.json({error: e.toString()})
+        }
+    },
+    removeServiceById: async (req, res) => {
+        try {
+            await Service.findByIdAndRemove(req.params.id)
+            res.json({message:'Услуга успешно удалена'})
+        } catch (e) {
+            res.json({error: e.toString()})
         }
     }
 }
