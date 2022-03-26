@@ -1,6 +1,7 @@
 const Executor = require("../models/Executor.model");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
+const { findById } = require("../models/Executor.model");
 
 module.exports.executorsController = {
     signUp: async (req, res) => {
@@ -78,4 +79,21 @@ module.exports.executorsController = {
             res.json({ error: e.toString() });
         }
     },
+
+    //Контроллеры для личного кабинета. Без необходимости не менять.
+    editExecutor: async (req, res) => {
+        const { executor, phone, city} = req.body
+        const executorId = req.user.executorId
+        try {
+            await Executor.findByIdAndUpdate(executorId, {
+                executor,
+                phone,
+                city
+            })
+            const updateUser = await Executor.findById(executorId)
+            res.json(updateUser)
+        } catch (e) {
+            res.json({error: e.toString()})
+        }
+    }
 };

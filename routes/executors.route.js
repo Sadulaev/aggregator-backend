@@ -9,4 +9,7 @@ router.get("/executor/:id", executorsController.getExecutorByParamsId);
 router.post("/signup",  executorsController.signUp);
 router.post("/signin",  executorsController.signIn);
 
+//Роуты для личного кабинета. Без необходимости не трогать
+router.patch("/executor/patch", authMiddleware, executorsController.editExecutor)
+
 module.exports = router;
