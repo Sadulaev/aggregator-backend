@@ -69,7 +69,6 @@ module.exports.executorsController = {
         }
         const payload = {
             executorId: candidate._id,
-            login: candidate.login
         };
             token = await jwt.sign(payload, process.env.SECRET_JWT_KEY, {
                 expiresIn: "14d",
