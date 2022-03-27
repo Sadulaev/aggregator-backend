@@ -2,9 +2,10 @@ const { Router } = require('express');
 const router = Router();
 const { servicesController } = require('../controllers/services.controller');
 const authMiddleware = require('../midlleware/auth.middleware');
+const upload = require("../midlleware/upload")
 
 router.get("/", servicesController.getServices);
-router.post("/", authMiddleware, servicesController.addService);
+router.post("/", authMiddleware, upload.single('image'), servicesController.addService);
 router.delete("/:id", authMiddleware, servicesController.deleteService);
 router.get("/:id", servicesController.getServiceById);
 router.get("/category/:categoryId", servicesController.getServicesByCategoryId);

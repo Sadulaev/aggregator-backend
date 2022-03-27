@@ -2,6 +2,8 @@ require("dotenv").config();
 const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
+const morgan = require("morgan");
+const path = require("path")
 
 const port = process.env.PORT;
 
@@ -9,7 +11,8 @@ const app = express();
 
 app.use(cors());
 app.use(express.json());
-
+app.use("/images", express.static(path.join(__dirname, "files")))
+app.use(morgan("dev"))
 app.use(require("./routes"));
 
 mongoose

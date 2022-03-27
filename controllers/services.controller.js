@@ -4,12 +4,14 @@ const { findByIdAndRemove } = require("../models/Service.model");
 
 module.exports.servicesController = {
     addService: async (req, res) => {
-        const {serviceName, serviceImg, description, categoryId, price, vipStatus} = req.body;
+
+        const {serviceName, description, categoryId, price, rate, vipStatus} = req.body;
+
         const {executorId} = req.user
         try {
             const newService = await Service.create({
                 serviceName, 
-                serviceImg,
+                serviceImg: req.file ? req.file.path : "",
                 description,
                 categoryId, 
                 price, 
