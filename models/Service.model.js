@@ -1,3 +1,4 @@
+const moment = require('moment');
 const mongoose = require('mongoose');
 
 const serviceSchema = mongoose.Schema({
@@ -25,11 +26,10 @@ const serviceSchema = mongoose.Schema({
     description: {
         type: String
     },
-    rate:  [
-        {
-            type: Number,
-        }
-    ],
+    time: {
+        type: String,
+        default: moment().format()
+    },
         
     
     vipStatus: {
