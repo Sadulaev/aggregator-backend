@@ -3,11 +3,12 @@ const Order = require("../models/Order.model");
 module.exports.ordersController = {
   postOrder: async (req, res) => {
     try {
-      const { name, phone, service } = req.body;
+      const { name, phone, serviceId, executorId } = req.body;
       const order = await Order.create({
         name,
         phone,
-        service,
+        serviceId,
+        executorId,
       });
       res.json(order);
     } catch (e) {
@@ -38,4 +39,22 @@ module.exports.ordersController = {
       res.json(e);
     }
   },
+
+  //Для личного кабинета
+  getOrdersByExecutorId: async (req, res) => {
+    try {
+      const ordersByExecutorId = await Order.find({ executorId: req.params.id });
+      res.json(ordersByExecutorId);
+    } catch (e) {
+      res.json({ error: e.toString() });
+    }
+  },
+  getOrdersByServiceId: async (req, res) => {
+    try {
+      const ordersByServiceId = await Order.find({ serviceId: req.params });
+      res.json(ordersByServiceId);
+    } catch (e) {
+      res.json({ error: e.toString() });
+    }
+  }
 };
