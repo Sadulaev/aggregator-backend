@@ -7,11 +7,18 @@ module.exports.servicesController = {
 
         const {serviceName, description, categoryId, price, rate, vipStatus} = req.body;
 
-        const {executorId} = req.user
+        const {executorId} = req.user;
+        let serviceImgArray
+        if (req.files) {
+            serviceImgArray = req.files.map(file => file.path);
+            console.log(serviceImgArray);
+        } else {
+            serviceImgArray = []
+        }
         try {
             const newService = await Service.create({
                 serviceName, 
-                serviceImg: req.file ? req.file.path : "",
+                serviceImg: req.files ? serviceImgArray : "",
                 description,
                 categoryId, 
                 price, 

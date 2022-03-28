@@ -20,9 +20,10 @@ const serviceSchema = mongoose.Schema({
         ref: 'Executor',
         required: true
     },
-    serviceImg: {
-        type: String
-    },
+    serviceImg: [
+        {type: String}
+    ]
+    ,
     description: {
         type: String
     },
