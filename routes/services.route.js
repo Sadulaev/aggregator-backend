@@ -5,7 +5,7 @@ const authMiddleware = require('../midlleware/auth.middleware');
 const upload = require("../midlleware/upload")
 
 router.get("/", servicesController.getServices);
-router.post("/", authMiddleware, upload.single('image'), servicesController.addService);
+router.post("/", authMiddleware, upload.array('images', 10), servicesController.addService);
 router.delete("/:id", authMiddleware, servicesController.deleteService);
 router.get("/:id", servicesController.getServiceById);
 router.get("/category/:categoryId", servicesController.getServicesByCategoryId);
